@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/edtUser"
+                    android:id="@+id/edtUserNew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="User Name"
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/edtEmail"
+                    android:id="@+id/edtEmailNew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
@@ -77,7 +77,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:passwordToggleEnabled="true">
                 <EditText
-                    android:id="@+id/edtPass"
+                    android:id="@+id/edtPassNew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -88,7 +88,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btnSignUp_New"
+                android:id="@+id/btnSignUp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -105,7 +105,6 @@
         <ProgressBar
             android:id="@+id/progressbar"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -114,7 +113,7 @@
 
 
 
-    <ImageButton
+    <vn.mrlongg71.assignment.View.ImageHelper
         android:id="@+id/user_profile_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"

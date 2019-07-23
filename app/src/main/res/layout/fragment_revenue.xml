@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.RevenueFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,5 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="RevenueFragment" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabReve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </FrameLayout>

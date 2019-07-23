@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/btnchooseanhCamera"
+        android:layout_weight="1"
+        android:src="@drawable/ic_menu_camera"
+        android:layout_margin="5dp"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+    <ImageView
+        android:id="@+id/btnchooseanhFile"
+        android:layout_weight="1"
+        android:src="@drawable/ic_menu_gallery"
+        android:layout_margin="5dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+</LinearLayout>

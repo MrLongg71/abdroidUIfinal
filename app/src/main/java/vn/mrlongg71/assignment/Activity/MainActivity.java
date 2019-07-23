@@ -1,7 +1,15 @@
 package vn.mrlongg71.assignment.Activity;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +22,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Toast;
 
 import vn.mrlongg71.assignment.Adapter.TabLayoutAdapter;
+import vn.mrlongg71.assignment.Fragment.HomeFragment;
+import vn.mrlongg71.assignment.Fragment.IntroduceFragment;
+import vn.mrlongg71.assignment.Fragment.RevenueFragment;
 import vn.mrlongg71.assignment.R;
 
 public class MainActivity extends AppCompatActivity
@@ -23,10 +35,10 @@ public class MainActivity extends AppCompatActivity
 
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    FloatingActionButton fab;
+
     Toolbar toolbar;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +46,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         setSupportActionBar(toolbar);
         anhxa();
-        tabLayout();
-
+        HomeFragment homeFragment = new HomeFragment();
+        fragmentTransaction.replace(R.id.content_main, homeFragment, homeFragment.getTag()).commit();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,84 +58,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void anhxa() {
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
-        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
     }
 
-    private void floatingActionButton() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
-
-    private void tabLayout() {
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        TabLayoutAdapter tabLayoutAdapter = new TabLayoutAdapter(getSupportFragmentManager(), this, tabLayout.getTabCount());
-
-        viewPager.setAdapter(tabLayoutAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_revenue);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_expenditure);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_statistics);
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
-                        tabLayout.getTabAt(0).setText("Doanh thu");
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_revenue_clicked);
-
-                        break;
-                    case 1:
-                        tabLayout.getTabAt(1).setText("Khoản chi");
-                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_expenditure_clicked);
-                        break;
-                    case 2:
-                        tabLayout.getTabAt(2).setText("Thống kê");
-                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_statistic_clicked);
 
 
-                        break;
-
-
-                }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-                switch (tab.getPosition()) {
-                    case 0:
-
-                        tabLayout.getTabAt(0).setText("");
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_revenue);
-                        break;
-                    case 1:
-                        tabLayout.getTabAt(1).setText("");
-                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_expenditure);
-                        break;
-                    case 2:
-                        tabLayout.getTabAt(2).setText("");
-                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_statistics);
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
 
     @Override
     public void onBackPressed() {
@@ -131,6 +72,8 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
+
             super.onBackPressed();
         }
     }
@@ -157,25 +100,34 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        switch (id) {
+            case R.id.nav_home:
+                HomeFragment homeFragment = new HomeFragment();
+                fragmentTransaction.replace(R.id.content_main, homeFragment, homeFragment.getTag()).commit();
+                break;
+            case R.id.nav_reve:
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+                break;
+            case R.id.nav_expen:
 
-        } else if (id == R.id.nav_slideshow) {
+                break;
+            case R.id.nav_static:
 
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+                break;
+            case R.id.nav_info:
+                IntroduceFragment introduceFragment = new IntroduceFragment();
+                fragmentTransaction.replace(R.id.content_main, introduceFragment, introduceFragment.getTag()).commit();
+                break;
 
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
