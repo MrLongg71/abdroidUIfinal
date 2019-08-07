@@ -1,26 +1,35 @@
 package vn.mrlongg71.assignment.Model;
 
 public class User {
-    private String user;
+    private String userID;
+    private String username;
     private String email;
     private String image;
 
     public User() {
     }
 
-    public User(String user, String email, String image) {
-        this.user = user;
+    public User(String userID, String username, String email, String image) {
+        this.userID = userID;
+        this.username = username;
         this.email = email;
-
         this.image = image;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -30,7 +39,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public String getImage() {
         return image;

@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
                         AlertDialog.Builder aBuilder = new AlertDialog.Builder(getActivity());
-
                         aBuilder.setTitle("Cảnh báo");
                         aBuilder.setMessage("Bạn có muốn thoát!");
                         aBuilder.setPositiveButton("Có", new DialogInterface.OnClickListener() {

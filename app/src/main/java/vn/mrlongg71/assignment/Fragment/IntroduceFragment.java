@@ -52,6 +52,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.mrlongg71.assignment.Activity.SplashActivity;
 import vn.mrlongg71.assignment.Adapter.Info_RecyclerViewAdapter;
 import vn.mrlongg71.assignment.Model.User;
@@ -63,7 +64,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class IntroduceFragment extends Fragment {
-    ImageView imgUser;
+    CircleImageView imgUser;
     TextView txtUserName;
     final int REQUSE_CODE_CAMERA = 123;
     final int REQUES_CODE_FILE = 456;
@@ -98,13 +99,10 @@ public class IntroduceFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User value = dataSnapshot.getValue(User.class);
-
-                userArrayList.add(new User(value.getUser(), value.getEmail(), value.getImage()));
-
+                userArrayList.clear();
+                userArrayList.add(new User(value.getUserID(),value.getUsername(), value.getEmail(), value.getImage()));
                 recyclerView.setAdapter(info_recyclerViewAdapter);
-                txtUserName.setText(value.getUser());
-
-
+                txtUserName.setText(value.getUsername());
                 if (value.getImage().equals("")) {
                     imgUser.setImageResource(R.drawable.user);
 
@@ -113,9 +111,7 @@ public class IntroduceFragment extends Fragment {
                             .load(value.getImage())
                             .into(imgUser);
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -127,6 +123,7 @@ public class IntroduceFragment extends Fragment {
     public void updatePhoto(Bitmap bitmap, final String idUser) {
         Show_Hide_Dialog.showProgressDialogWithTitle("Đang cập nhật...", progressDialog);
         final StorageReference mountainsRef = storage.child("users").child(idUser);
+        Log.d("iduser" , idUser);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         final byte[] data = baos.toByteArray();
@@ -167,15 +164,12 @@ public class IntroduceFragment extends Fragment {
     }
 
     private void eventImg() {
-
         imgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog_ChooseAddAnhSV();
             }
         });
-
-
     }
 
     private void dialog_ChooseAddAnhSV() {

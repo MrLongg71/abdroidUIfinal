@@ -7,10 +7,10 @@
     tools:context=".Fragment.ExpenditureFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerKhoangChi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ExpenditureFragment" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabExpen"
         android:layout_width="wrap_content"

@@ -3,4 +3,9 @@
     <color name="colorPrimary">#FF5722</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#FF5722</color>
+    <color name="color">#FF5722</color>
+    <color name="RED">#FF0000</color>
+    <color name="BLUE">#03A9F4</color>
+
+
 </resources>

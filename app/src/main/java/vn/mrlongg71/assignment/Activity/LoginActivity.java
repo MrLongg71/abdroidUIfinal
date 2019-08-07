@@ -21,13 +21,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
 import vn.mrlongg71.assignment.Model.User;
 import vn.mrlongg71.assignment.R;
+import vn.mrlongg71.assignment.View.CustomToast;
 import vn.mrlongg71.assignment.View.Show_Hide_Dialog;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     DatabaseReference mDatabase;
     ProgressDialog progressDialog;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,20 +97,16 @@ public class LoginActivity extends AppCompatActivity {
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
-
                             if (task.isSuccessful()) {
-
-                                User users = new User(user, email, "");
-                                String userID = firebaseAuth.getCurrentUser().getUid();
+                                userID = firebaseAuth.getCurrentUser().getUid();
+                                User users = new User(userID, user, email, "");
                                 mDatabase.child("users").child(userID).setValue(users);
-
                                 Show_Hide_Dialog.hideProgressDialogWithTitle(progressDialog);
-                                Toast.makeText(LoginActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                                CustomToast.makeText(getApplicationContext(), "Đăng ký thành công!", CustomToast.SUCCESS,CustomToast.LENGTH_LONG, false).show();
                                 dialog.dismiss();
                             } else {
                                 Show_Hide_Dialog.hideProgressDialogWithTitle(progressDialog);
-                                Toast.makeText(LoginActivity.this, "Đăng ký thất bại: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                CustomToast.makeText(getApplicationContext(), "Đăng ký thất bại: " + task.getException(), CustomToast.ERROR,CustomToast.LENGTH_LONG, false).show();
                             }
                         }
                     });
@@ -123,39 +124,36 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = edtUser.getText().toString();
                 String pass = edtPass.getText().toString();
-
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
-//                    Snackbar snackbar = Snackbar
-//                            .make(v, "Welcome to AndroidHive", Snackbar.LENGTH_LONG);
-//
-//                    snackbar.show();
-                    Toast.makeText(LoginActivity.this, "Thông tin bắt buộc!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeText(getApplicationContext(), "Thông tin bắt buộc!", CustomToast.LENGTH_LONG, CustomToast.ERROR,false).show();
                 } else if (!checkemail(email)) {
-                    Toast.makeText(LoginActivity.this, "Email không đúng định dạng!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeText(getApplicationContext(), "Email không đúng định dạng!", CustomToast.LENGTH_LONG, CustomToast.ERROR,false).show();
                 } else {
-                    Show_Hide_Dialog.showProgressDialogWithTitle("Vui lòng chờ...", progressDialog);
+                    Show_Hide_Dialog.showProgressDialogWithTitle("Vui lòng chờ hihi...", progressDialog);
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            String userID = firebaseAuth.getCurrentUser().getUid();
                             if (task.isSuccessful()) {
                                 Show_Hide_Dialog.hideProgressDialogWithTitle(progressDialog);
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("userID", userID); //userID
+                                CustomToast.makeText(getApplicationContext(), "Đăng nhập thành công! Xin chào "  , CustomToast.LENGTH_LONG, CustomToast.SUCCESS,false).show();
+                                startActivity(intent);
                                 finish();
                             } else {
                                 Show_Hide_Dialog.hideProgressDialogWithTitle(progressDialog);
-                                Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
+                                CustomToast.makeText(getApplicationContext(), "Sai tài khoản hoặc mật khẩu!", CustomToast.LENGTH_LONG, CustomToast.ERROR,false).show();
                             }
                         }
                     });
                 }
-
             }
         });
 
 
     }
-
-
     //check email
     private boolean checkemail(String email) {
         Pattern Email = Pattern.compile("[a-zA-Z0-9+._%-+]{1,256}" +
@@ -170,8 +168,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void anhxa() {
-
-
         edtUser = findViewById(R.id.edtUser);
         edtPass = findViewById(R.id.edtPass);
         btnSignIn = findViewById(R.id.btnSignIn);
@@ -180,9 +176,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         edtUser.setText("abc@gmail.com");
-        edtPass.setText("1234567");
-
-
+        edtPass.setText("123456");
     }
 
 }

@@ -113,7 +113,7 @@
 
 
 
-    <vn.mrlongg71.assignment.View.ImageHelper
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_profile_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"

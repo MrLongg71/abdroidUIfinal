@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment</string>
+    <string name="app_name">Quản lí Chi tiêu</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -8,12 +8,25 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_sta">Thống kê</string>
+    <string name="menu_user">Tài khoản</string>
+    <string name="tongthu">Tổng thu</string>
+    <string name="tongchi">Tổng chi</string>
+    <!--Đăng Nhập/ Đăng ký-->
+    <string name="btnSignIn">Sign In</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="TitleSignIn">Account Login</string>
+    <string name="TitleSignUp">Account Register</string>
+    <string name="remember_account">Remember account</string>
+    <string name="forgot_pass">Forgot Password?</string>
+    <string name="hintUser">Username</string>
+    <string name="hintPass">Password</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
+
+
+
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
